@@ -24,6 +24,22 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Inject API Key into .env
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -n "$GEMINI_API_KEY" ]; then
+            echo "GEMINI_API_KEY=$GEMINI_API_KEY" > .env
+          elif [ -f .env.example ]; then
+            cp .env.example .env
+          fi
+
+      - name: Create google-services.json if missing
+        run: |
+          if [ ! -f app/google-services.json ]; then
+            echo '{"project_info":{"project_number":"123","project_id":"dummy","storage_bucket":"dummy.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:123:android:123","android_client_info":{"package_name":"com.aistudio.galaxycamera.kxqzyw"}},"api_key":[{"current_key":"dummy"}]}]}' > app/google-services.json
+          fi
+
       - name: Build Debug APK
         run: gradle :app:assembleDebug
 
