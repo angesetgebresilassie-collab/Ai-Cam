@@ -1,0 +1,6 @@
+{
+  "name": "Galaxy Camera",
+  "description": "Samsung One UI Camera app with silent background AI enhancement",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
