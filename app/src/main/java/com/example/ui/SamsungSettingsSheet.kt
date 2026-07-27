@@ -111,7 +111,7 @@ fun SamsungSettingsSheet(
                     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
                         SettingSwitchItem(
                             title = "Scene Optimizer",
-                            subtitle = "Automatically optimize colors, contrast & clarity with seamless offline AI or online Gemini",
+                            subtitle = "Automatically analyze and remaster scene colors, dynamic range & clarity using Gemini Cloud AI",
                             checked = uiState.isAiSceneOptimizerEnabled,
                             onCheckedChange = { viewModel.toggleAiSceneOptimizer() },
                             icon = true
@@ -203,7 +203,7 @@ fun SamsungSettingsSheet(
                                 )
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
-                                    text = "Version 1.0.0 (Seamless Gemini & Offline Engine)",
+                                    text = "Version 1.0.0 (Gemini Cloud AI Engine)",
                                     color = Color.Gray,
                                     fontSize = 12.sp
                                 )
