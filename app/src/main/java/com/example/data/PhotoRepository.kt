@@ -120,6 +120,26 @@ class PhotoRepository(
         }
     }
 
+    suspend fun cloudUpscalePhoto(photo: PhotoEntity): PhotoEntity = withContext(Dispatchers.IO) {
+        val originalFile = File(photo.originalPath)
+        if (originalFile.exists()) {
+            photoDao.updatePhoto(photo.copy(enhancementStatus = PhotoEntity.STATUS_PROCESSING))
+            val result = aiEnhancer.upscalePhotoCloud(originalFile)
+            val updated = photo.copy(
+                enhancedPath = result.enhancedFilePath,
+                enhancementStatus = PhotoEntity.STATUS_COMPLETED,
+                sceneCategory = result.sceneCategory,
+                enhancementSummary = result.enhancementSummary,
+                width = photo.width * 2,
+                height = photo.height * 2
+            )
+            photoDao.updatePhoto(updated)
+            updated
+        } else {
+            photo
+        }
+    }
+
     suspend fun deletePhoto(photo: PhotoEntity) = withContext(Dispatchers.IO) {
         try {
             File(photo.originalPath).delete()

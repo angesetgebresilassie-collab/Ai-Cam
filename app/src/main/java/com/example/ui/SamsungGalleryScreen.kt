@@ -160,30 +160,61 @@ fun SamsungGalleryScreen(
                         }
 
                         if (photo.enhancementStatus == PhotoEntity.STATUS_COMPLETED) {
-                            // Toggle Compare Before / After Button
-                            Surface(
-                                onClick = { viewModel.toggleCompareBeforeAfter() },
-                                color = if (uiState.showCompareBeforeAfter) Color(0xFFFFC107) else Color(0x33FFFFFF),
-                                shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier.testTag("compare_before_after_button")
-                            ) {
-                                Row(
-                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-                                    verticalAlignment = Alignment.CenterVertically
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                // Cloud Upscayl 2x HD Super Resolution Button
+                                Surface(
+                                    onClick = { viewModel.upscaleSelectedPhotoCloud() },
+                                    color = Color(0xFFFFC107),
+                                    shape = RoundedCornerShape(12.dp),
+                                    modifier = Modifier
+                                        .padding(end = 6.dp)
+                                        .testTag("cloud_upscayl_button")
                                 ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Compare,
-                                        contentDescription = "Compare",
-                                        tint = if (uiState.showCompareBeforeAfter) Color.Black else Color.White,
-                                        modifier = Modifier.size(14.dp)
-                                    )
-                                    Spacer(modifier = Modifier.width(4.dp))
-                                    Text(
-                                        text = if (uiState.showCompareBeforeAfter) "Original" else "Compare",
-                                        color = if (uiState.showCompareBeforeAfter) Color.Black else Color.White,
-                                        fontSize = 11.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
+                                    Row(
+                                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.AutoAwesome,
+                                            contentDescription = "Cloud Upscayl",
+                                            tint = Color.Black,
+                                            modifier = Modifier.size(14.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        Text(
+                                            text = "Cloud Upscayl 2x",
+                                            color = Color.Black,
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                    }
+                                }
+
+                                // Toggle Compare Before / After Button
+                                Surface(
+                                    onClick = { viewModel.toggleCompareBeforeAfter() },
+                                    color = if (uiState.showCompareBeforeAfter) Color.White else Color(0x33FFFFFF),
+                                    shape = RoundedCornerShape(12.dp),
+                                    modifier = Modifier.testTag("compare_before_after_button")
+                                ) {
+                                    Row(
+                                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Compare,
+                                            contentDescription = "Compare",
+                                            tint = if (uiState.showCompareBeforeAfter) Color.Black else Color.White,
+                                            modifier = Modifier.size(14.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        Text(
+                                            text = if (uiState.showCompareBeforeAfter) "Original" else "Compare",
+                                            color = if (uiState.showCompareBeforeAfter) Color.Black else Color.White,
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                    }
                                 }
                             }
                         } else {

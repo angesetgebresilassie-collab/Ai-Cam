@@ -207,6 +207,14 @@ class CameraViewModel(
         }
     }
 
+    fun upscaleSelectedPhotoCloud() {
+        val photo = _uiState.value.selectedPhotoForGallery ?: return
+        viewModelScope.launch {
+            val updated = repository.cloudUpscalePhoto(photo)
+            _uiState.update { it.copy(selectedPhotoForGallery = updated) }
+        }
+    }
+
     fun deleteSelectedPhoto() {
         val photo = _uiState.value.selectedPhotoForGallery ?: return
         viewModelScope.launch {
